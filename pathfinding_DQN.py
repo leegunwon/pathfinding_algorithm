@@ -99,7 +99,7 @@ class grid_world():
         done, r_arrived = self.r1_is_done(self.robot_1_pos)
         r += r_arrived
         s = np.array([self.robot_1_pos[0]- self.r1_goal[0], self.robot_1_pos[1] - self.r1_goal[1],
-                      self.robot_2_pos[0]- self.robot_1_pos[0], self.robot_2_pos[1]-self.robot_1_pos[1],
+                      self.robot_1_pos[0]- self.robot_2_pos[0], self.robot_1_pos[1]-self.robot_2_pos[1],
                       self.robot_2_pos[0] - self.r2_goal[0], self.robot_2_pos[1] - self.r2_goal[1]])
         return s, r, done, done_obj
 
