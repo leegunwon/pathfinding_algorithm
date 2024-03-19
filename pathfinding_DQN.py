@@ -98,9 +98,15 @@ class grid_world():
         # 종료 조건
         done, r_arrived = self.r1_is_done(self.robot_1_pos)
         r += r_arrived
-        s = np.array([self.robot_1_pos[0]- self.r1_goal[0], self.robot_1_pos[1] - self.r1_goal[1],
-                      self.robot_1_pos[0]- self.robot_2_pos[0], self.robot_1_pos[1]-self.robot_2_pos[1],
-                      self.robot_2_pos[0] - self.r2_goal[0], self.robot_2_pos[1] - self.r2_goal[1]])
+        if env.robot_2_on == False:
+            s = np.array([self.robot_1_pos[0]- self.r1_goal[0], self.robot_1_pos[1] - self.r1_goal[1],
+                          self.robot_1_pos[0]- self.robot_2_pos[0], self.robot_1_pos[1]-self.robot_2_pos[1],
+                          self.robot_2_pos[0] - self.r2_goal[0], self.robot_2_pos[1] - self.r2_goal[1]])
+        else:
+            s = np.array([self.robot_2_pos[0]- self.r2_goal[0], self.robot_2_pos[1] - self.r2_goal[1],
+                          self.robot_2_pos[0]- self.robot_1_pos[0], self.robot_2_pos[1]-self.robot_1_pos[1],
+                          self.robot_1_pos[0] - self.r1_goal[0], self.robot_1_pos[1] - self.r1_goal[1]])
+        
         return s, r, done, done_obj
 
 
@@ -129,9 +135,15 @@ class grid_world():
         # 종료 조건
         done, r_arrived = self.r2_is_done(self.robot_2_pos)
         r += r_arrived
-        s = np.array([self.robot_2_pos[0]- self.r2_goal[0], self.robot_2_pos[1] - self.r2_goal[1],
-                      self.robot_2_pos[0]- self.robot_1_pos[0], self.robot_2_pos[1]-self.robot_1_pos[1],
-                      self.robot_1_pos[0] - self.r1_goal[0], self.robot_1_pos[1] - self.r1_goal[1]])
+
+        if env.robot_2_on == False:
+            s = np.array([self.robot_2_pos[0]- self.r2_goal[0], self.robot_2_pos[1] - self.r2_goal[1],
+                          self.robot_2_pos[0]- self.robot_1_pos[0], self.robot_2_pos[1]-self.robot_1_pos[1],
+                          self.robot_1_pos[0] - self.r1_goal[0], self.robot_1_pos[1] - self.r1_goal[1]])
+        else:
+            s = np.array([self.robot_1_pos[0]- self.r1_goal[0], self.robot_1_pos[1] - self.r1_goal[1],
+                          self.robot_1_pos[0]- self.robot_2_pos[0], self.robot_1_pos[1]-self.robot_2_pos[1],
+                          self.robot_2_pos[0] - self.r2_goal[0], self.robot_2_pos[1] - self.r2_goal[1]])
         return s, r, done, done_obj
 
     def reset(self):
